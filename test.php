@@ -4,7 +4,10 @@ $utcPort = "8080";
 $utcUser = "fontdeploy";
 $utcPassword = "Time2015";
 
-shell_exec('sudo corecli -clientserver -login server='.$utcServer.' port='.$utcPort.' username='.$utcUser.' password='.$utcPassword);
-$workGroups = shell_exec('sudo corecli -clientserver -getWorkgroups');
+echo 'sudo -u hamidb corecli -clientserver -login server='.$utcServer.' port='.$utcPort.' username='.$utcUser.' password='.$utcPassword;
+$login = shell_exec('sudo -u hamidb corecli -clientserver -login server='.$utcServer.' port='.$utcPort.' username='.$utcUser.' password='.$utcPassword);
+print_r ($login);
+$workGroups = shell_exec('sudo -u hamidb corecli -clientserver -getWorkgroups');
+//$workGroups = shell_exec('sudo ./getWorkgroups.sh');
 print_r ($workGroups);
 ?>
