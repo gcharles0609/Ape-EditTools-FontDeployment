@@ -1,7 +1,8 @@
 <?php
 $brandName = $_POST["fontset"];
 // Need to create the uploads folder on your workstation and change permissions on it to 777
-$target_dir = "/Users/Shared/uploads/".$brandName."/";
+
+$target_dir = "/Users/Shared/uploads/$brandName/$brandName";
 $target_file = $target_dir . basename($_FILES["fileToUpload"]["name"]);
 $uploadOk = 1;
 $imageFileType = pathinfo($target_file,PATHINFO_EXTENSION);
@@ -10,7 +11,11 @@ if (file_exists($target_dir)) {
     echo "Sorry, file already exists.";
     $uploadOk = 1;}
     else {
-      mkdir("/Users/Shared/uploads/".$brandName);
+
+
+    mkdir("/Users/Shared/uploads/$brandName/$brandName", 0777, true);
+    //mkdir("/Users/Shared/uploads/".$brandName);
+
     }
 
 
