@@ -3,9 +3,55 @@
   <head>
     <meta charset="utf-8">
     <title>Font Uploader</title>
+<link rel="stylesheet" href="js/dist/dropzone.css">
+<link rel="stylesheet" href="js/dist/basic.css">
   </head>
   <body>
-    <form class="" action="uploader.php" method="post" enctype="multipart/form-data">
+    <script src="js/dist/dropzone.js"></script>
+
+    <script>
+
+    dropzone.options.fontUploader = {
+    // The configuration we've talked about above
+    autoProcessQueue: false,
+    uploadMultiple: true,
+    parallelUploads: 50,
+    maxFiles: 50,
+
+    // The setting up of the dropzone
+    init: function() {
+      var myDropzone = this;
+
+      // First change the button to actually tell Dropzone to process the queue.
+      this.element.querySelector("button[type=submit]").addEventListener("click", function(e) {
+        // Make sure that the form isn't actually being sent.
+        e.preventDefault();
+        e.stopPropagation();
+        myDropzone.processQueue();
+      });
+
+      // Listen to the sendingmultiple event. In this case, it's the sendingmultiple event instead
+      // of the sending event because uploadMultiple is set to true.
+      this.on("sendingmultiple", function() {
+        // Gets triggered when the form is actually being sent.
+        // Hide the success button or the complete form.
+      });
+      this.on("successmultiple", function(files, response) {
+        // Gets triggered when the files have successfully been sent.
+        // Redirect user or notify of success.
+      });
+      this.on("errormultiple", function(files, response) {
+        // Gets triggered when there was an error sending the files.
+        // Maybe show form again, and notify user of error
+      });
+    }
+
+    }
+    </script>
+
+<div align="center">
+  <h1>Select Brand</h1>
+    <form id="fontUploader" class="dropzone" action="uploader.php" method="post" enctype="multipart/form-data">
       <select class="" name="fontset">
         <option value="All You">All You</option>
         <option value="Coastal Living">Coastal Living</option>
@@ -32,9 +78,8 @@
         <option value="Time">Time</option>
         <option value="TravelLeisure">TravelLeisure</option>
       </select>
-      Select font to upload:
-      <input type="file" name="fileToUpload" id="fileToUpload">
-      <input type="submit" name="submit" value="submit">
+
     </form>
+  </div>
   </body>
 </html>
